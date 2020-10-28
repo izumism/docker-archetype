@@ -15,10 +15,11 @@ build:
 
 run:
 	docker container run -d --name $(container) \
-		-v /main/:$(workroot)/$(project)/app/src/main/java/app
-		$(image) \
+		-v $(shell pwd)/main/:$(workdir)/app/src/main/java/$(project)/ \
+		-v $(shell pwd)/test/:$(workdir)/app/src/test/java/$(project)/ \
+		-v $(shell pwd)/../protobuf/:$(workdir)/app/src/main/protobuf/ \
+		$(image) tail -f /dev/null \
 		
-			
 
 bash:
 	docker exec -it $(container) bash
