@@ -1,0 +1,24 @@
+FROM ubuntu:18.04
+
+WORKDIR /app
+
+RUN apt update && \
+    apt install -y curl
+
+# Latest nodejs and npm
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt install -y nodejs
+
+# Typescript compiler
+RUN npm install -g typescript
+
+# install from package[-lock].json
+COPY package*.json ./
+COPY tsconfig.json ./
+RUN npm install
+
+# Set japanese language environment
+RUN apt install -y language-pack-ja-base language-pack-ja && \
+    locale-gen ja_JP.UTF-8
+
+ENV LANG ja_JP.UTF-8
