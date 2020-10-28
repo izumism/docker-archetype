@@ -20,3 +20,4 @@ RUN gradle init \
     --test-framework junit \
     --project-name ${project} \
     --package ${project}
+COPY build.gradle ${workroot}/${project}/app
