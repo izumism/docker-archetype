@@ -27,7 +27,7 @@ copy_build_gradle: build.gradle
 app_build: copy_build_gradle
 	docker exec -it -w $(workdir) $(container) ./gradlew clean build
 
-app_run: build_app
+app_run: app_build
 	docker exec -it -w $(workdir) $(container) ./gradlew run
 
 bash:
