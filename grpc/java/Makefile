@@ -1,36 +1,27 @@
-image = jdk11_protobuf:latest
-container = jdk11_protobuf
-project_name = grpcclient
-project_dir = /app/$(project_name)
-exec_cls = App
+image = grapc_clitnt:java
+container = grpc_client
+workroot=/app
+project=grpcclient
 
-.PHONY: all build clean run bash
+.PHONY: all build run bash
 
 all:
 
 build:
 	docker image build \
-		--build-arg MVN_PROJECT_NAME=$(project_name) \
-		--build-arg MVN_PACKAGE_NAME=$(project_name) \
+		--build-arg workroot=$(workroot) \
+		--build-arg project=$(project) \
 		-t $(image) .
 
 run:
-	docker container run -td \
-		--name $(container) \
-		-v $(shell pwd)/../protobuf/:/app/protobuf/ \
-		-v $(shell pwd)/src/:$(project_dir)/src/main/java/$(project_name)/ \
-		$(image) tail -f /dev/null
+	docker container run -d --name $(container) \
+		-v /main/:$(workroot)/$(project)/app/src/main/java/app
+		$(image) \
+		
+			
+
+bash:
+	docker exec -it $(container) bash
 
 clean:
 	docker container rm -f $(container)
-
-bash:
-	docker container exec -it $(container) bash
-
-compile:
-	docker exec -it -w $(project_dir) $(container) \
-		mvn compile
-
-exec: compile
-	docker exec -it -w $(project_dir) $(container) \
-		mvn exec:java -Dexec.mainClass="$(project_name).$(exec_cls)"

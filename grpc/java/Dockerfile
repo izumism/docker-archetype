@@ -4,23 +4,19 @@ SHELL ["/bin/bash", "-c"]
 
 RUN apt update
 
-WORKDIR /app
 
-# java environment
-RUN apt install -y maven protobuf-compiler
+# Install sdkman
+RUN apt install -y curl zip unzip
+RUN curl -s "https://get.sdkman.io" | bash && \
+    source "$HOME/.sdkman/bin/sdkman-init.sh"; sdk install gradle
 
-# pom.xml : <artifactId>
-ARG MVN_PROJECT_NAME
-# pom.xml : <groupId>
-ARG PACKAGE_NAME
-
-RUN mvn archetype:generate \
-    -DgroupId=${MVN_PROJECT_NAME} \
-    -DartifactId=${MVN_PROJECT_NAME} \
-    -DarchetypeArtifactId=maven-archetype-quickstart \
-    -DarchetypeVersion=1.4 \
-    -DinteractiveMode=false
-
-WORKDIR /app/${MVN_PROJECT_NAME}
-COPY pom.xml /app/${MVN_PROJECT_NAME}
-RUN mvn -T 8 -q clean install
+ENV PATH=$PATH:/root/.sdkman/candidates/gradle/current/bin
+ARG workroot=
+ARG project=
+WORKDIR ${workroot}/${project}
+RUN gradle init \
+    --type java-application \
+    --dsl groovy \
+    --test-framework junit \
+    --project-name ${project} \
+    --package ${project}
