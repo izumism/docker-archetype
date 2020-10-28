@@ -1,5 +1,5 @@
 image = golang_protobuf:latest
-container = go_grpc
+container = gogrpc
 project_dir = /home/productinfo/service
 protobuf_subdir = protobuf
 proto_src = $(project_dir)/$(protobuf_subdir)

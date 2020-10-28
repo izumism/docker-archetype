@@ -1,5 +1,5 @@
 image = grpc_client:java
-container = grpc_client
+container = javagrpcclient
 workroot=/app
 project=grpcclient
 workdir=$(workroot)/$(project)
