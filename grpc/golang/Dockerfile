@@ -13,5 +13,3 @@ COPY ./build/go.mod ./
 
 RUN go get -u google.golang.org/grpc && \
     go get -u github.com/golang/protobuf/protoc-gen-go 
-
-RUN mkdir protogo
