@@ -1,5 +1,5 @@
 import React from 'react';
 
-const CarouselButon = () => <button/>;
+const CarouselButton = () => <button/>;
 
-export default CarouselButon;
+export default CarouselButton;
