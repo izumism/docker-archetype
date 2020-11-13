@@ -26,6 +26,7 @@ RUN npm install react@16.4.2
 RUN npm install --save-dev react-dom@16.4.2
 RUN npm install --save-dev eslint-plugin-react@7.11.1
 RUN npm install --save-dev enzyme@3.8.0 enzyme-adapter-react-16@1.7.1
+RUN npm install prop-types@15.7.2
 
 RUN npm audit fix
 

@@ -7,7 +7,8 @@ configure({ adapter: new Adapter() });
 
 describe('CarouselButton', () => {
   it('renders a <button>', () => {
-    const wrapper = shallow(<CarouselButton />);
+    const text = 'Button text';
+    const wrapper = shallow(<CarouselButton>{text}</CarouselButton>);
     expect(wrapper.type()).toBe('button');
   });
 });
