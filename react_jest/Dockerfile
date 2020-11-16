@@ -28,6 +28,9 @@ RUN npm install --save-dev eslint-plugin-react@7.11.1
 RUN npm install --save-dev enzyme@3.8.0 enzyme-adapter-react-16@1.7.1
 RUN npm install prop-types@15.7.2
 RUN npm install --save-dev babel-eslint@10.0.1
+RUN npm install --save-dev @babel/plugin-proposal-class-properties@7.1.0
+RUN npm install --save-dev webpack@4.26.1 webpack-cli@3.1.2 babel-loader@8.0.4
+RUN npm install --save-dev html-webpack-plugin@3.2.0
 
 RUN npm audit fix
 

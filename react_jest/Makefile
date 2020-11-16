@@ -15,6 +15,9 @@ run:
 		$(img) \
 		tail -f /dev/null
 
+clean:
+	docker container rm -f $(cnt)
+
 bash:
 	docker exec -it $(cnt) bash
 

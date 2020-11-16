@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const CarouselSlide = ({ imgUrl, description, attribution, ...rest }) => (
   <figure {...rest}>
-    <img src={imgUrl}/>
+    <img src={imgUrl} />
     <figcaption>
       <strong>{description}</strong> {attribution}
     </figcaption>
