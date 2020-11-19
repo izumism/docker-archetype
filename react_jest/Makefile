@@ -11,6 +11,7 @@ build:
 run:
 	docker container run \
 		-d --name $(cnt) \
+		-p 8080:8080 \
 		-v $(shell pwd)/app/:/app \
 		$(img) \
 		tail -f /dev/null
