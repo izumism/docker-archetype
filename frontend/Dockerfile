@@ -1,21 +1,21 @@
-FROM ubuntu:18.04
+# React application development environment setup 
+FROM node:latest
+
+SHELL ["/bin/bash", "-c"]
 
 WORKDIR /app
 
-RUN apt update && \
-    apt install -y curl
+COPY ./app/package*.json ./
 
-# Latest nodejs and npm
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt install -y nodejs
-
-# Typescript compiler
-RUN npm install -g typescript
+RUN npm install --silent
+RUN npm audit fix
 
 EXPOSE 3000
-# React-Typescript
-RUN npx create-react-app my-react --template typescript
 
-RUN npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser \
-    eslint-config-airbnb-typescript eslint-plugin-jest
+RUN mkdir /var/log/react
+# cleanup
+RUN apt clean -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*
 
+CMD npm start 
