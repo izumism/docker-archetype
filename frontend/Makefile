@@ -1,17 +1,18 @@
-image = front_app:dev
-container = front_app
+image = react:dev
+container = react
+port = 3000
 
 .PHONY: build run bash clean
 
 all:
 
-build: dockerfile-dev app/package.json
+build: Dockerfile app/package.json
 	docker build -f ./Dockerfile -t $(image) .
 
 run:
 	docker container run -d \
 		--name $(container) \
-		-p 3001:3000 \
+		-p $(port):3000 \
 		-e REACT_APP_TEST_ENV=true \
 		-v $(shell pwd)/app/:/app/ \
 		$(image) \
