@@ -1,42 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import './App.css';
 
+type Todo = {
+  id: string,
+  task: string,
+  complete: boolean,
+};
+
+type Action = {
+  type: 'DO_TODO' | 'UNDO_TODO';
+  id: string;
+};
+
+const initialTodos: Todo[] = [
+  {
+    id: 'a',
+    task: 'Learn React',
+    complete: false,
+  },
+  {
+    id: 'b',
+    task: 'Learn Firebase',
+    complete: false,
+  },
+];
+
+const todoReducer = (state: Todo[], action: Action) => {
+  switch (action.type) {
+    case 'DO_TODO':
+      return state.map((todo) => (
+        todo.id === action.id ? { ...todo, complete: true } : todo));
+    case 'UNDO_TODO':
+      return state.map((todo) => (
+        todo.id === action.id ? { ...todo, complete: false } : todo));
+    default:
+      return state;
+  }
+};
+
 function App() {
-  const [isOn, setIsOn] = useState(false);
-  const [timer, setTimer] = useState(0);
+  const [todos, dispatch] = useReducer(
+    todoReducer,
+    initialTodos,
+  );
 
-  useEffect(() => {
-    let interval: number;
-    if (isOn) {
-      interval = setInterval(() => setTimer(timer + 1), 1000);
-    }
-    return (() => clearInterval(interval));
-  }, [isOn, timer]);
-
-  const onReset = () => {
-    setIsOn(false);
-    setTimer(0);
+  const handleChange = (todo: Todo) => {
+    dispatch({
+      type: todo.complete ? 'UNDO_TODO' : 'DO_TODO',
+      id: todo.id,
+    });
   };
 
   return (
-    <div>
-      {timer}
-      {!isOn && (
-        <button type="button" onClick={() => setIsOn(true)}>
-          Start
-        </button>
-      )}
-
-      {isOn && (
-        <button type="button" onClick={() => setIsOn(false)}>
-          Stop
-        </button>
-      )}
-
-      <button type="button" disabled={timer === 0} onClick={onReset}>
-        Reset
-      </button>
-    </div>
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>
+          <label htmlFor={todo.id}>
+            <input
+              type="checkbox"
+              checked={todo.complete}
+              onChange={() => handleChange(todo)}
+            />
+            {todo.task}
+          </label>
+        </li>
+      ))}
+    </ul>
   );
 }
 
