@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [isOn, setIsOn] = useState(false);
+  const [timer, setTimer] = useState(0);
+
+  useEffect(() => {
+    let interval: number;
+    if (isOn) {
+      interval = setInterval(() => setTimer(timer + 1), 1000);
+    }
+    return (() => clearInterval(interval));
+  }, [isOn, timer]);
+
+  const onReset = () => {
+    setIsOn(false);
+    setTimer(0);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {timer}
+      {!isOn && (
+        <button type="button" onClick={() => setIsOn(true)}>
+          Start
+        </button>
+      )}
+
+      {isOn && (
+        <button type="button" onClick={() => setIsOn(false)}>
+          Stop
+        </button>
+      )}
+
+      <button type="button" disabled={timer === 0} onClick={onReset}>
+        Reset
+      </button>
     </div>
   );
 }
