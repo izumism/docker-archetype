@@ -1,6 +1,12 @@
 module.exports = {
-	plugins: ["prettier", "@typescript-eslint"],
-	extends: ["airbnb-typescript", "react-app"],
+	plugins: [
+    "@typescript-eslint"
+  ],
+	extends: [
+    "airbnb-typescript",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
 	parser: "@typescript-eslint/parser",
   env: {
     browser: true,
@@ -8,8 +14,12 @@ module.exports = {
     jest: true,
     node: true,
   },
-  parser: '@typescript-eslint/parser',
   parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true
+    },
     project: './tsconfig.json',
   },
   settings: {
@@ -17,9 +27,13 @@ module.exports = {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
+    },
+    react: {
+      version: "detect"
     }
   },
   rules: {
+    "no-underscore-dangle": 0,
     "class-methods-use-this": "off",
     "no-alert": "off",
     "no-console": "off",
@@ -38,6 +52,9 @@ module.exports = {
     "no-unused-vars": [
       "warn",
       {
+        "ignoreRestSiblings": true,
+        "varsIgnorePattern": "[iI]gnored",
+        "argsIgnorePattern": "^_",
         "vars": "all",
         "args": "none"
       }
@@ -45,6 +62,9 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
+        "ignoreRestSiblings": true,
+        "varsIgnorePattern": "[iI]gnored",
+        "argsIgnorePattern": "^_",
         "vars": "all",
         "args": "none"
       }
@@ -82,5 +102,5 @@ module.exports = {
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-wrap-multilines": "off",
     "react/destructuring-assignment": "off"
-  },
+    },
 };
