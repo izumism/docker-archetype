@@ -9,7 +9,7 @@ all:
 run:
 	docker container run -d \
 		--name $(container) \
-		-p 49002:8080 \
+		-p 49001:8080 \
 		-v $(shell pwd)/jenkins_home:/var/jenkins_home \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		$(image) 

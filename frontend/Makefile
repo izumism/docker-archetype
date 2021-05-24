@@ -1,6 +1,6 @@
-image = react:dev
-container = react
-port = 3000
+image = react/recoil:latest
+container = react-dev
+port = 3002
 
 .PHONY: build run bash clean
 

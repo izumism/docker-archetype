@@ -8,7 +8,6 @@ WORKDIR /app
 COPY ./app/package*.json ./
 
 RUN npm install --silent
-RUN npm audit fix
 
 EXPOSE 3000
 

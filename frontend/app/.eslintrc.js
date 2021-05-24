@@ -34,6 +34,8 @@ module.exports = {
   },
   rules: {
     "no-underscore-dangle": 0,
+    "arrow-body-style": "off",
+    "operator-linebreak": "off",
     "class-methods-use-this": "off",
     "no-alert": "off",
     "no-console": "off",
@@ -48,7 +50,8 @@ module.exports = {
         "": "never"
       }
     ],
-    "object-curly-spacing": ["warn", "always"],
+    "object-curly-spacing": 'off',
+    "object-curly-newline": 'off',
     "no-unused-vars": [
       "warn",
       {
@@ -67,6 +70,13 @@ module.exports = {
         "argsIgnorePattern": "^_",
         "vars": "all",
         "args": "none"
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        selector: 'default',
+        format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE']
       }
     ],
     "@typescript-eslint/no-explicit-any": [
@@ -97,10 +107,11 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "react/jsx-boolean-value": "off",
-    "react/prop-types": "off",
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
     "react/no-unescaped-entities": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-wrap-multilines": "off",
     "react/destructuring-assignment": "off"
-    },
+  },
 };
